@@ -1,0 +1,62 @@
+.job-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 10px;    
+      border: 1px solid lightgray; 
+  }
+  
+  .position {
+      color :#008080;
+      margin: 0 0 10px;
+  }
+  
+  .skills h3 {
+      font-size: 14px;
+      margin: 0 0 8px;
+  }
+  
+  .experience,
+  .location {
+      font-size: 15px;
+      color: #777;
+  }
+ 
+  .table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+  }
+  
+  .table-header th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    text-align: left;
+    padding: 12px;
+  }
+  
+  .table tr {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table tr:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+  }
+  
+  .text-success {
+    color: #28a745;
+  }
+  
+  .text-danger {
+    color: #dc3545;
+  }
+  
+  .open-resume:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  
