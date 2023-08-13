@@ -1,16 +1,9 @@
-import fs from "fs";
-import multer from "multer";
-import path from "path";
 
+import multer from "multer";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const destinationPath = path.join(process.cwd(), "src/public/pdf");
-    
-    // Create the directory if it doesn't exist
-    fs.mkdirSync(destinationPath, { recursive: true });
-
-    cb(null, destinationPath);
+    cb(null, "server/src/public/pdf");
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
