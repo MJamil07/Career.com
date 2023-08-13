@@ -3,7 +3,7 @@ import multer from "multer";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const destinationPath = path.join(__dirname, "public/pdf");
+    const destinationPath = path.join(process.cwd(), "src/public/pdf");
     cb(null, destinationPath);
   },
   filename: (req, file, cb) => {
@@ -12,3 +12,6 @@ const storage = multer.diskStorage({
 });
 
 export default multer({ storage });
+
+
+
