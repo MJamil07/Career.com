@@ -31,6 +31,7 @@ app.use('/role' , roleRouter)
 app.use('/resume' , upload.single('resume') , resumeRouter)
 
 
+
 // ! This middleware function that handles all requests that do not match any of the defined routes in the application
 app.use('*' , (_req , response) => {      
       response.status(404).json({'message' : `url = ${ _req.hostname + _req.baseUrl + _req.url} , method = ${_req.method} , Not Found`})
@@ -41,3 +42,6 @@ app.use('*' , (_req , response) => {
 app.listen(7878 , () => {
       console.log('server start');
 })
+
+
+export default app
