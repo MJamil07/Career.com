@@ -1,13 +1,14 @@
+import path from "path";
 import multer from "multer";
 
 const storage = multer.diskStorage({
-      destination: (req, file, cb) => {
-        cb(null, 'https://github.com/MJamil07/Career.com/blob/main/server/src/public/pdf'); 
-      },
-      filename: (req, file, cb) => {
-        cb(null, file.originalname);
-      },
-    });
+  destination: (req, file, cb) => {
+    const destinationPath = path.join(__dirname, "public/pdf");
+    cb(null, destinationPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
 
-
-export default multer({storage})
+export default multer({ storage });
