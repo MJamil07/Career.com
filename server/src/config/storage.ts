@@ -1,9 +1,12 @@
-import path from "path";
-import multer from "multer";
+import fs from "fs";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const destinationPath = path.join(process.cwd(), "src/public/pdf");
+    
+    // Create the directory if it doesn't exist
+    fs.mkdirSync(destinationPath, { recursive: true });
+
     cb(null, destinationPath);
   },
   filename: (req, file, cb) => {
@@ -12,6 +15,3 @@ const storage = multer.diskStorage({
 });
 
 export default multer({ storage });
-
-
-
