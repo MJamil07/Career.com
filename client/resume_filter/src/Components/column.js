@@ -27,7 +27,7 @@ export const columns = [
         title: 'Email',
         dataIndex: 'email',
         key: 'email',
-        render: emailList => <span>{emailList?.join(', ')}</span>,
+        render: emailList => <a href={`mailto:${emailList[0]}`}>{emailList[0]}</a>,
       },
       {
         title: 'Location',

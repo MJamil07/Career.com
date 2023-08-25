@@ -11,9 +11,12 @@ const upload = async ( request : Request , response : Response ) => {
             response.status(400).json({message : 'resume is expected'})
       }
 
+      console.log(request.file);
+      
+
       try {
             // ? extract resume data
-            const resume_extract_data = await extractDataInResume(request.file?.path)
+            const resume_extract_data = await extractDataInResume(request.file?.path , getFileType(request.file?.originalname))
             const isMatch = await isSkillsMatch(request.body?.role_id , resume_extract_data?.skills);
 
             // * create resume data object
@@ -34,6 +37,15 @@ const upload = async ( request : Request , response : Response ) => {
             response.status(500).json({message : 'Server Error'})
       }
 
+}
+
+const getFileType = (fileName : string | undefined) => {
+     
+      if (fileName == undefined)
+            return ""
+
+     const array = fileName.split('.')
+     return array.pop();
 }
 
 const read = async ( request : Request , response : Response ) => {
@@ -96,6 +108,26 @@ const filter = async (request : Request , response : Response) => {
       
 }
 
-export { upload , read , get_role_based }
+
+const getLocation = async (request : Request , response : Response) => {
+
+      // * location field mattum eduthu
+      const data = await ResumeSchema.find({})
+                                      .select('location')
+                                      .exec()
+      // * duplicate remove panna set data structure
+      const locations = new Set();
+      // * data la ulla oru oru location field ah eduthu
+      for (const field of data) {
+            // * athula ulla location ah set il add seiyavum
+            for (const location of field.location) {
+                  locations.add(location)
+            }
+      }
+      response.json([...locations.values()])
+      
+}
+
+export { upload , read , get_role_based , getLocation }
 
 

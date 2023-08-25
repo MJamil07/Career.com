@@ -29,6 +29,7 @@ export default function JobApply() {
 
   const handleChange = (e) => {
       setResume(e.target.files[0]);
+      console.log(e.target.files[0]);
   }
 
   const handleUpload = (e) => {
@@ -120,7 +121,7 @@ export default function JobApply() {
                     className="form-control" 
                     type="file" 
                     name="resume" 
-                    accept=".pdf" 
+                    accept=".pdf,.doc,.docx" 
                     onChange={handleChange}
                     required 
                   />

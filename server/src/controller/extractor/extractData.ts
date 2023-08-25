@@ -1,5 +1,6 @@
 import fs from 'fs';
 import pdf from 'pdf-parse';
+import mammoth from 'mammoth'
 
 // * Import patterns
 import languages from './patterns/language';
@@ -54,16 +55,30 @@ const findExperience = (text : string ) => {
 }
 
 // * Function to extract data from PDF
-const extractData = async (filePath : string) => {
+const extractDataFromPdf = async (filePath : string) => {
     try {
         const dataBuffer = await fs.readFileSync(filePath);
         const pdfData = await pdf(dataBuffer);
-        return pdfData;
+        return pdfData.text;
     } catch (error) {
         console.error('Error reading or parsing PDF:', error);
         return null;
     }
 };
+
+const extractDataFromDocx = async (filePath : string) => {
+
+    try {
+
+        const docxBuffer = await fs.readFileSync(filePath);
+        const doc = await mammoth.extractRawText({buffer : docxBuffer})
+        return doc.value;
+
+    } catch (error) {
+        console.error('Error reading or parsing PDF:', error);
+        return null;
+    }
+}
 
 // * Function to extract data for a specific field pattern
 const extractDataGivenField = (pdfText : string , fieldPatterns : { name: string , regex: RegExp; }[]) => {
@@ -78,14 +93,14 @@ const extractDataGivenField = (pdfText : string , fieldPatterns : { name: string
     return foundFields;
 };
 
-const extractDataInResume = async (path : string | undefined) => {
+const extractDataInResume = async (path : string | undefined , type : string | undefined) => {
 
   
-    if (!path) 
+    if (!path || !type) 
         return;
 
     // * Extract text and data from PDF
-    const pdfdata = await extractData(path);
+    const pdfdata = type == 'pdf' ? await extractDataFromPdf(path) : await extractDataFromDocx(path);
 
     if (!pdfdata) {
         console.log('Unable to extract data from the PDF.');
@@ -93,13 +108,13 @@ const extractDataInResume = async (path : string | undefined) => {
     }
 
     const resumeData = {
-        email: findEmails(pdfdata.text),
-        phone: findPhoneNumbers(pdfdata.text)[0],
-        position: extractDataGivenField(pdfdata.text, positions),
-        skills: extractDataGivenField(pdfdata.text, skills),
-        languages: extractDataGivenField(pdfdata.text, languages),
-        location : findLocations(pdfdata.text),
-        experience : findExperience(pdfdata.text)
+        email: findEmails(pdfdata),
+        phone: findPhoneNumbers(pdfdata)[0],
+        position: extractDataGivenField(pdfdata, positions),
+        skills: extractDataGivenField(pdfdata, skills),
+        languages: extractDataGivenField(pdfdata, languages),
+        location : findLocations(pdfdata),
+        experience : findExperience(pdfdata)
     };
      
     return resumeData

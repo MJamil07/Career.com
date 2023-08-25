@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-// const URL = 'mongodb://127.0.0.1:27017/resume_filter';
-const URL = 'mongodb+srv://root:root@web-app.qfkecpv.mongodb.net/resume01';
+const URL = 'mongodb://127.0.0.1:27017/resume_filter';
+// const URL = 'mongodb+srv://root:root@web-app.qfkecpv.mongodb.net/resume01';
 /**
  * The function `connect` connects to a MongoDB database using the Mongoose library in TypeScript.
  */

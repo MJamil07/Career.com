@@ -29,6 +29,7 @@ export default function FilterApllication() {
       async function fetchData() {
         const data = await axios.get(endpoint)
         setResumes(data.data)
+        console.table(data.data)
         setIsLoading(true)
 
       }
