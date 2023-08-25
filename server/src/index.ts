@@ -30,7 +30,7 @@ connect()
 app.use('/role' , roleRouter)
 app.use('/resume' , upload.single('resume') , resumeRouter)
 
-
+console.log("running")
 
 // ! This middleware function that handles all requests that do not match any of the defined routes in the application
 app.use('*' , (_req , response) => {      

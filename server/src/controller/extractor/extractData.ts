@@ -67,9 +67,7 @@ const extractDataFromPdf = async (filePath : string) => {
 };
 
 const extractDataFromDocx = async (filePath : string) => {
-
     try {
-
         const docxBuffer = await fs.readFileSync(filePath);
         const doc = await mammoth.extractRawText({buffer : docxBuffer})
         return doc.value;
@@ -93,14 +91,14 @@ const extractDataGivenField = (pdfText : string , fieldPatterns : { name: string
     return foundFields;
 };
 
-const extractDataInResume = async (path : string | undefined , type : string | undefined) => {
+const extractDataInResume = async (path : string | undefined ) => {
 
   
-    if (!path || !type) 
+    if (!path) 
         return;
 
     // * Extract text and data from PDF
-    const pdfdata = type == 'pdf' ? await extractDataFromPdf(path) : await extractDataFromDocx(path);
+    const pdfdata = path.endsWith('.pdf') ? await extractDataFromPdf(path) : await extractDataFromDocx(path);
 
     if (!pdfdata) {
         console.log('Unable to extract data from the PDF.');

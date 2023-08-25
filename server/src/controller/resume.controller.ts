@@ -16,7 +16,7 @@ const upload = async ( request : Request , response : Response ) => {
 
       try {
             // ? extract resume data
-            const resume_extract_data = await extractDataInResume(request.file?.path , getFileType(request.file?.originalname))
+            const resume_extract_data = await extractDataInResume(request.file?.path) 
             const isMatch = await isSkillsMatch(request.body?.role_id , resume_extract_data?.skills);
 
             // * create resume data object
@@ -39,14 +39,7 @@ const upload = async ( request : Request , response : Response ) => {
 
 }
 
-const getFileType = (fileName : string | undefined) => {
-     
-      if (fileName == undefined)
-            return ""
 
-     const array = fileName.split('.')
-     return array.pop();
-}
 
 const read = async ( request : Request , response : Response ) => {
       try {

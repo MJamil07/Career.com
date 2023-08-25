@@ -29,7 +29,6 @@ export default function JobApply() {
 
   const handleChange = (e) => {
       setResume(e.target.files[0]);
-      console.log(e.target.files[0]);
   }
 
   const handleUpload = (e) => {
